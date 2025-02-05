@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block title %}Inicio - NutriExtractor{% endblock %}
+
+{% block content %}
+<div class="container-fluid" style="background-image: url('https://images.pexels.com/photos/5718029/pexels-photo-5718029.jpeg'); background-size: cover; background-position: center; height: 100vh;">
+    <div class="d-flex justify-content-center align-items-center h-100">
+        <!-- Usando col-md-6 para mayor tamaño en pantallas medianas -->
+        <div class="col-md-6 col-lg-4">
+            <div class="card shadow-lg p-4" style="border-radius: 16px; background: rgba(255, 255, 255, 0.85);">
+                <h2 class="text-center mb-4">Agregar Producto</h2>
+                <form method="POST" action="/comparar_datos">
+                    <div class="mb-3">
+                        <label for="urls" class="form-label">Pega uno o varios enlaces de Open Food Facts en líneas diferentes:</label>
+                        <textarea class="form-control" id="urls" name="urls" rows="5" width="600" required placeholder="https://es.openfoodfacts.org/producto/
+https://es.openfoodfacts.org/producto/
+..."></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Añadir Producto</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Barra inferior fija fuera del container-fluid -->
+<div class="bg-dark py-4 fixed-bottom">
+    <div class="container text-center">
+        <!-- Pastilla 1: Open Food Facts -->
+        <a href="https://world.openfoodfacts.org" class="btn btn-light rounded-pill m-2">
+             Open Food Facts
+        </a>
+        
+        <!-- Pastilla 2: Descargar Excel -->
+        <a href="https://world.openfoodfacts.org" class="btn btn-light rounded-pill m-2">
+             Descargar Hoja Excel Macros
+        </a>
+    </div>
+</div>
+
+
+
+
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+
+
+
+<script>
+    // Obtener el parámetro 'url' de la URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const urlParam = urlParams.get('url');
+
+    // Verificar si 'url' está presente y no es nulo
+    if (urlParam !== null) {
+      // Asignar 'url' al campo de texto
+      document.getElementById('urls').value = decodeURIComponent(urlParam);
+    }
+  </script>
+{% endblock %}

@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+
+{% block title %}Insertar Producto{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h1 class="text-primary">Insertar Nuevo Producto</h1>
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+                {% endwith %}
+                
+                <form method="post" action="{{url_for('main.insertar_producto_manual') }}">
+                     <!-- Mensaje de confirmación -->
+                     <div class="col-md-3">
+                    <label for="nombre" class="form-label mb-3">Nombre:</label>
+                    <input type="text" id="nombre" name="nombre" class="form-control" required>
+                    </div>
+                    <br>
+                    <div class="col-md-3">
+                    <label for="energia" class="form-label mb-3">Energía:</label>
+                    <input type="number" id="energia" name="energia" class="form-control" required>
+                    </div>
+
+                    <div class="col-md-3">
+                    <label for="grasas" class="form-label mb-3">Grasas:</label>
+                    <input type="number" id="grasas" name="grasas" class="form-control"  required>
+                    </div>
+
+                    <div class="col-md-3">
+                    <label for="grasas_saturadas" class="form-label mb-3">Grasas Saturadas:</label>
+                    <input type="number" id="grasas_saturadas" name="grasas_saturadas" class="form-control"  required>
+                    </div>
+
+                    <div class="col-md-3">
+                    <label for="carbohidratos" class="form-label mb-3">Carbohidratos:</label>
+                    <input type="number" id="carbohidratos" name="carbohidratos" class="form-control"  required>
+                    </div>
+
+                    <div class="col-md-3">
+                    <label for="azucares" class="form-label mb-3">Azucares:</label>
+                    <input type="number" id="azucares" name="azucares" class="form-control"  required>
+                    </div>
+
+                    <div class="col-md-3">
+                    <label for="fibra_alimentaria" class="form-label mb-3">Fibra Alimentaria:</label>
+                    <input type="number" id="fibra_alimentaria" name="fibra_alimentaria" class="form-control"  required>
+                    </div>
+
+                    <div class="col-md-3">
+                    <label for="proteinas" class="form-label mb-3">Proteínas:</label>
+                    <input type="number" id="proteinas" name="proteinas" class="form-control"   required>
+                    </div>
+
+                    <div class="col-md-3">
+                    <label for="url" class="form-label mb-3">URL:</label>
+                    <textarea id="url" name="url" rows="4" style="width: 500px;" class="form-control"  ></textarea>
+                    </div>
+                    <!-- Agrega campos adicionales aquí para otros atributos -->
+                    
+                    <button type="submit" class="btn btn-primary">Agregar Producto</button>
+                </form>
+              
+            </div>
+        </div>
+    </div>
+
+                
+      
+    </div>
+</div>
+</div>
+{% endblock %}

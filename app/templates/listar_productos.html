@@ -1,0 +1,142 @@
+{% extends 'base.html' %}
+
+{% block title %}Lista de Productos{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+        <h1 class="text-primary">Lista de Productos</h1>
+        <p class="lead">Productos actualmente almacenados</p>
+        <a href="{{url_for('main.descargar_bd_csv') }}" class="btn btn-primary btn-descargar-csv mb-3">Descargar BD en CSV</a>
+        <div id="flash-messages"></div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <table border="1" class="table table-responsive m-4" id="tabla-productos">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Energía</th>
+            <th>Grasas</th>
+            <th>Grasas Saturadas</th>
+            <th>Hidratos de Carbono</th>
+            <th>Azúcares</th>
+            <th>Fibra Alimentaria</th>
+            <th>Proteínas</th>
+            <th>URL</th>
+            <th>Eliminar</th>
+            <th>Editar</th>
+     
+        </tr>
+    </thead>
+    <tbody>
+        {% for producto in productos %}
+            <tr id="producto-{{ producto.id }}">
+                <td>{{ producto.id }}</td>
+                <td>{{ producto.nombre }}</td>
+                <td>{{ producto.energia }}</td>
+                <td>{{ producto.grasas }}</td>
+                <td>{{ producto.grasas_saturadas }}</td>
+                <td>{{ producto.carbohidratos }}</td>
+                <td>{{ producto.azucares }}</td>
+                <td>{{ producto.fibra_alimentaria }}</td>
+                <td>{{ producto.proteinas }}</td>
+                <td><a href="{{ producto.url }}">Enlace</a></td>
+                <td>
+                    <form class="eliminar-form" data-id="{{ producto.id }}" action="{{ url_for('main.eliminar_producto', id=producto.id) }}" method="post">
+                        <button type="submit" class="btn btn-danger">Eliminar</button>
+                    </form>
+                </td>
+                <td>
+                    <form action="{{url_for('main.editar_producto', id=producto.id) }}" method="get">
+                        
+                        <button type="submit" class="btn btn-primary">Editar</button>
+                    </form>
+                </td>
+                
+
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+</div>
+</div>
+</div>
+
+
+<!-- ... Tu contenido HTML ... -->
+
+<script>
+    $(document).ready(function() {
+        // Inicializar DataTable
+        $('#tabla-productos').DataTable({
+            "paging": true,
+            "ordering": true,
+            "info": true,
+            "searching": true
+        });
+
+ 
+
+      
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+    const forms = document.querySelectorAll('.eliminar-form');
+    forms.forEach(form => {
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const productoId = this.getAttribute('data-id');
+            const actionUrl = this.getAttribute('action');
+
+            // Enviar el ID del producto a eliminar en el cuerpo de la solicitud
+            fetch(actionUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ id: productoId }) // Enviar el ID del producto
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Eliminar la fila de la tabla
+                    const row = document.getElementById(`producto-${productoId}`);
+                    if (row) {
+                        row.parentNode.removeChild(row);
+                    }
+
+                    // Mostrar mensaje flash
+                    const flashContainer = document.getElementById('flash-messages');
+                    if (flashContainer) {
+                        const flashMessage = document.createElement('div');
+                        flashMessage.className = 'alert alert-success';
+                        flashMessage.textContent = data.message;
+                        flashContainer.appendChild(flashMessage);
+
+                        // Ocultar el mensaje después de unos segundos
+                        setTimeout(() => {
+                            flashMessage.style.display = 'none';
+                        }, 3000);
+                    }
+                } else {
+                    // Manejar el caso de error
+                    console.error(data.message);
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        });
+    });
+});
+
+</script>
+
+<!-- ... Tu contenido HTML ... -->
+
+{% endblock %}
+

@@ -1,0 +1,157 @@
+/* styles.css */
+
+/* General */
+body {
+  font-family: 'Roboto', Arial, sans-serif;
+  color: #333;
+}
+
+.bg-index {
+  background-image: url('/static/fondo.jpg');
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+
+}
+
+.bg-light {
+  background-color: #ffffff;
+}
+
+.navbar {
+  background-color: #fff !important;
+}
+
+.navbar-brand {
+  font-weight: bold;
+  color: #007BFF !important;
+}
+
+.navbar-nav .nav-link {
+  color: #555 !important;
+}
+
+.navbar-nav .nav-link:hover {
+  color: #007BFF !important;
+}
+
+/* Tarjeta del formulario */
+.card {
+  border: none;
+  max-width: 800px; /* Aumentando el ancho de la tarjeta */
+}
+.card.form-card {
+  background: rgba(255, 255, 255, 0.85); /* Fondo translúcido */
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4); /* Sombra más intensa */
+  border-radius: 16px; /* Bordes redondeados */
+  padding: 40px; /* Espaciado interno adicional */
+
+  z-index: 10;
+  position: relative; /* Asegura que el z-index funcione */
+}
+
+
+
+.
+/* Botón */
+.btn-primary {
+  background: linear-gradient(45deg, #007bff, #0056b3);
+  border: none;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(45deg, #0056b3, #007bff);
+}
+
+/* Fondo */
+.container-fluid {
+  background: rgba(0, 0, 0, 0.6);
+  margin-bottom: 80px; /* Ajusta este valor según la altura de tu barra fija */
+}
+.bg-light .container-fluid{
+  background-color: #ffffff;
+}
+
+a.eliminar {
+  color: red;
+  margin-left: 10px;
+}
+
+/* ... */
+.btn-descargar-csv {
+    margin-top: 10px;
+  }
+
+  /* En tu archivo styles.css */
+
+/* static/css/custom.css */
+.editar-fecha-section .table {
+  font-size: 0.4em;  /* Reduce el tamaño de la fuente */
+}
+
+.editar-fecha-section .container {
+  margin-bottom: 9px;  /* Añade margen inferior a la sección */
+}
+
+.editar-fecha-section .row {
+  margin-bottom: 9px;  /* Añade margen inferior a las filas */
+}
+
+.editar-fecha-section h1, .editar-fecha-section h2 {
+  margin-bottom: 10px;  /* Añade margen inferior a los encabezados */
+}
+
+.editar-fecha-section .btn {
+  font-size: 0.3em;  /* Reduce el tamaño de la fuente de los botones */
+}
+
+.editar-fecha-section select,
+.editar-fecha-section input[type="number"],
+.editar-fecha-section input[type="hidden"] {
+  font-size: 0.4em;  /* Reduce el tamaño de la fuente de los inputs y selects */
+}
+.column-small {
+  width: 10%;
+}
+.column-medium {
+  width: 20%;
+}
+.column-large {
+  width: 30%;
+}
+
+.form-row .col-md-4 input, 
+.form-row .col-md-4 select, 
+.form-row .col-md-4 button {
+    width: 100%; /* Ensure each form element takes up the full width of its column */
+    margin-bottom: 10px; /* Add some space between rows */
+}
+
+.highlight {
+  background-color: #ffff99; /* Color de resaltado */
+}
+ 
+
+
+/* Encabezado de las páginas */
+h1.text-primary {
+  margin-top: 30px; /* Ajusta el margen superior según lo necesites */
+}
+
+.bg-info {
+  background-color: #111111 !important;   /* Azul más oscuro */
+}
+
+/* Estilo para las pastillas */
+.btn-light {
+  border-radius: 25px; /* Bordes redondeados */
+  padding: 15px 30px; /* Aumentar tamaño de las pastillas */
+  font-size: 1.2rem; /* Aumentar tamaño del texto */
+}
+
+
+
+
+.contenido-principal {
+  margin-bottom: 80px; /* Ajusta este valor según la altura de tu barra fija */
+}

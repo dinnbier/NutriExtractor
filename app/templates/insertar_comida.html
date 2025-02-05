@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block title %}Insertar Comida{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h1 class="text-primary">Insertar Nueva Comida</h1>
+                 <!-- Mensaje de confirmación -->
+                 {% with messages = get_flashed_messages(with_categories=true) %}
+                 {% if messages %}
+                     {% for category, message in messages %}
+                         <div class="alert alert-{{ category }}">
+                             {{ message }}
+                         </div>
+                     {% endfor %}
+                 {% endif %}
+                 {% endwith %}
+                <form method="post" action="{{url_for('main.insertar_comida') }}">
+                   
+                    <div class="mb-3">
+                        <label for="nombre" class="form-label mb-3">Nombre:</label>
+                        <input type="text" id="nombre" name="nombre" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="detalles" class="form-label">Detalles:</label>
+                        <textarea id="detalles" name="detalles" class="form-control" rows="4" style="width: 500px;"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="url" class="form-label">URL:</label>
+                        <input type="text" id="url" name="url" class="form-control">
+                    </div>
+                    <div class="mb-3">
+                        <label for="racion_habitual" class="form-label">Ración Habitual:</label>
+                        <input type="number" id="racion_habitual" name="racion_habitual" class="form-control" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Añadir Comida</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

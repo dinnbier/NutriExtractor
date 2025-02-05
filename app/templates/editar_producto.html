@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block title %}Editar Producto{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h1 class="text-primary" >Editar Producto</h1>
+                <form method="post" class="form-label mb-3"action="{{url_for('main.editar_producto', id=producto.id) }}">
+                   s
+                    <label for="nombre" class="form-label mb-3">Nombre:</label>
+                    <input type="text" id="nombre" name="nombre" value="{{ producto.nombre }}" required>
+                    <br>
+
+                    <label for="energia" class="form-label mb-3">Energía:</label>
+                    <input type="number" id="energia" name="energia" value="{{ producto.energia }}" step="any"  required>
+                    <br>
+
+                    <label for="grasas" class="form-label mb-3">Grasas:</label>
+                    <input type="number" id="grasas" name="grasas" value="{{ producto.grasas }}" step="any" required>
+                    <br>
+
+                    <label for="grasas_saturadas" class="form-label mb-3">Grasas Saturadas:</label>
+                    <input type="number" id="grasas_saturadas" name="grasas_saturadas" value="{{ producto.grasas_saturadas }}" step="any" required>
+                    <br>
+
+                    <label for="carbohidratos" class="form-label mb-3">Carbohidratos:</label>
+                    <input type="number" id="carbohidratos" name="carbohidratos" value="{{ producto.carbohidratos }}" step="any"  required>
+                    <br>
+
+                    <label for="azucares" class="form-label mb-3">Azúcares:</label>
+                    <input type="number" id="azucares" name="azucares" value="{{ producto.azucares }}" step="any"  required>
+                    <br>
+
+                    <label for="fibra_alimentaria" class="form-label mb-3">Fibra Alimentaria:</label>
+                    <input type="number" id="fibra_alimentaria" name="fibra_alimentaria" value="{{ producto.fibra_alimentaria }}" step="any" required>
+                    <br>
+
+                    <label for="proteinas" class="form-label mb-3">Proteínas:</label>
+                    <input type="number" id="proteinas" name="proteinas" value="{{ producto.proteinas }}" step="any"  required>
+                    <br>
+
+                    <label for="url" class="form-label mb-3">URL:</label>
+                    <textarea id="url" name="url" rows="4" style="width: 500px;" required>{{ producto.url }}</textarea>
+
+                    <!-- Agrega campos adicionales aquí para otros atributos -->
+                    <br>
+                    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                </form>
+                <!-- Mensaje de confirmación -->
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,136 @@
+<!-- templates/index.html -->
+
+{% extends 'base.html' %}
+
+{% block title %}Lista de Productos{% endblock %}
+
+{% block content %}
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<div class="container mt-5">
+    <h1 class="text-center">Datos Nutricionales</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Producto</th>
+                <th>Energía</th>
+                <th>Grasas</th>
+                <th>Grasas saturadas</th>
+                <th>Hidratos de carbono</th>
+                <th>Azúcares</th>
+                <th>Fibra alimentaria</th>
+                <th>Proteínas</th>
+                <th>URL</th>
+                <th>BD</th> <!-- Nueva columna -->
+            </tr>
+        </thead>
+        <tbody>
+            {% for datos in datos_obtenidos %}
+                <tr>
+                    <td>{{ datos['nombre'] }}</td>
+                    <td>{{ datos['energia'] }}</td>
+                    <td>{{ datos['grasas'] }}</td>
+                    <td>{{ datos['grasas_saturadas'] }}</td>
+                    <td>{{ datos['carbohidratos'] }}</td>
+                    <td>{{ datos['azucares'] }}</td>
+                    <td>{{ datos['fibra_alimentaria'] }}</td>
+                    <td>{{ datos['proteinas'] }}</td>
+                    <td><a href="{{ datos['url'] }}">enlace</a></td>
+                    <td>
+                        {% if datos['en_bd'] %}
+                            Guardado
+                        {% else %}
+                            <button class="btn btn-success btn-guardar" data-url="{{ datos['url'] }}">Guardar</button>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+
+</div>
+
+<h1 class="text-center">Energía</h1>
+<canvas id="myChart2" width="800" height="200"></canvas>
+<script>
+    var productos = {{ datos_obtenidos|map(attribute='nombre')|list|tojson|safe }};
+    var datosProductos = {{ datos_obtenidos|tojson|safe }};
+    var labels = ['Energía'];
+    var colores = ['rgba(45, 249, 132, 0.6)', 'rgba(255, 3, 132, 0.6)', 'rgba(43, 100, 130, 0.6)', 'yellow', 'purple', 'gray', 'black', 'pink'];
+    var coloresBorde = ['rgba(45, 249, 132, 1)', 'rgba(255, 3, 132, 1)', 'rgba(43, 100, 130, 1)', 'yellow', 'purple', 'gray', 'black', 'pink'];
+
+    var ctx = document.getElementById('myChart2').getContext('2d');
+    var myChart2 = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: datosProductos.map(function(datos, index) {
+                return {
+                    label: productos[index],
+                    data: [datos.energia],
+                    backgroundColor: colores[index],
+                    borderColor: coloresBorde[index],
+                    borderWidth: 2,
+                    fill: false
+                };
+            })
+        },
+    });
+</script>
+
+<h1 class="text-center">Macronutrientes</h1>
+<canvas id="myChart" width="400" height="200"></canvas>
+<script>
+    var productos = {{ datos_obtenidos|map(attribute='nombre')|list|tojson|safe }};
+    var datosProductos = {{ datos_obtenidos|tojson|safe }};
+    var labels = ['Grasas', 'Grasas saturadas', 'Hidratos de carbono', 'Azúcares', 'Fibra alimentaria', 'Proteínas'];
+    var labels_original = ['grasas', 'grasas_saturadas', 'carbohidratos', 'azucares', 'fibra_alimentaria', 'proteinas'];
+    var colores = ['rgba(45, 249, 132, 0.6)', 'rgba(255, 3, 132, 0.6)', 'rgba(43, 100, 130, 0.6)', 'yellow', 'purple', 'gray', 'black', 'pink'];
+    var coloresBorde = ['rgba(45, 249, 132, 1)', 'rgba(255, 3, 132, 1)', 'rgba(43, 100, 130, 1)', 'yellow', 'purple', 'gray', 'black', 'pink'];
+
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: datosProductos.map(function(datos, index) {
+                return {
+                    label: productos[index],
+                    data: labels_original.map(function(label) {
+                        return datos[label];
+                    }),
+                    backgroundColor: colores[index],
+                    borderColor: coloresBorde[index],
+                    borderWidth: 1,
+                    fill: false
+                };
+            })
+        },
+    });
+
+    $(document).ready(function() {
+        $('.btn-guardar').click(function(e) {
+            e.preventDefault();
+            var url = $(this).data('url');
+            
+            $.ajax({
+                type: "POST",
+                url: '/guardar_producto/' + encodeURIComponent(url),
+               
+                success: function(response) {
+                    if (response.success) {
+                        $(e.target).text('Guardado').removeClass('btn-success').addClass('btn-secondary').prop('disabled', true);
+                    } else {
+                        console.log('El producto ya está en la base de datos.');
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.log('Error en la solicitud AJAX:', error);
+                }
+            });
+        });
+    });
+</script>
+
+{% endblock %}

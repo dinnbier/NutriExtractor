@@ -1,0 +1,36 @@
+/* Colores pastel suaves entre rojo, naranja y marrón */
+.desayuno {
+    background-color: #FFCCCC; /* Pastel red */
+}
+
+.media-mañana {
+    background-color: #FFE5CC; /* Pastel orange */
+}
+
+.comida {
+    background-color: #FFDAB9; /* Light peach */
+}
+
+.tarde {
+    background-color: #FFF0E1; /* Very light orange */
+}
+
+.cena {
+    background-color: #FFEBCC; /* Light tan */
+}
+
+/* Opcional: mejorar la legibilidad */
+table {
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+th, td {
+    border-bottom: 1px solid #ddd;
+    padding: 8px;
+}
+
+tr.desayuno:hover, tr.media-mañana:hover, tr.comida:hover, tr.tarde:hover, tr.cena:hover {
+    background-color: #FFE8E8; /* Slightly darker pastel */
+}
+
